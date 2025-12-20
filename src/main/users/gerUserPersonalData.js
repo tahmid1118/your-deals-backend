@@ -5,18 +5,16 @@ const { pool } = require("../../../database/dbPool");
 const getUserPersonalData = async (authData) => {
   const _query = `
     SELECT
-        id,
+        user_id,
         full_name,
         email,
         contact_no,
-        profile_img,
         created_at,
         updated_at
     FROM
         user
     WHERE
-        id = ? AND
-        is_user_active = 1 AND
+        user_id = ? AND
         email = ?
 `;
 
@@ -25,30 +23,39 @@ const getUserPersonalData = async (authData) => {
     const [rows] = await pool.query(_query, _values);
     return rows[0];
   } catch (error) {
+    console.error('Error getting user personal data:', error);
     return Promise.reject(error);
   }
 };
 
 const getPersonalData = async (authData) => {
+  const language = authData.lg || 'en';
   try {
     const userData = await getUserPersonalData(authData);
     if (!userData) {
       return Promise.reject(
-        setServerResponse(API_STATUS_CODE.BAD_REQUEST, "User not found")
+        setServerResponse(
+          API_STATUS_CODE.BAD_REQUEST,
+          'user_not_found',
+          language
+        )
       );
     }
     return Promise.resolve(
       setServerResponse(
         API_STATUS_CODE.OK,
-        "Data fetched successfully",
+        'data_fetched_successfully',
+        language,
         userData
       )
     );
   } catch (error) {
+    console.error('Get personal data error:', error);
     return Promise.reject(
       setServerResponse(
         API_STATUS_CODE.INTERNAL_SERVER_ERROR,
-        "Internal server error"
+        'internal_server_error',
+        language
       )
     );
   }

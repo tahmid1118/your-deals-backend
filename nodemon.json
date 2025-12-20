@@ -1,0 +1,11 @@
+{
+  "watch": ["src", "app.js"],
+  "ext": "js,json",
+  "ignore": ["node_modules/**", "logs/**", ".env", "*.log"],
+  "delay": "2000",
+  "verbose": true,
+  "signal": "SIGTERM",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}

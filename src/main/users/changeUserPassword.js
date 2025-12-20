@@ -8,12 +8,12 @@ const { pool } = require("../../../database/dbPool");
 const getUserInfo = async (authData) => {
   const _query = `
         SELECT
-            id,
+            user_id,
             password
         FROM
            user
         WHERE
-            id = ?
+            user_id = ?
     `;
   try {
     const [row] = await pool.query(_query, [authData.id]);
@@ -22,6 +22,7 @@ const getUserInfo = async (authData) => {
     }
     return false;
   } catch (error) {
+    console.error('Error getting user info:', error);
     return Promise.reject(error);
   }
 };
@@ -34,7 +35,7 @@ const updateUserPasswordQuery = async (userId, hashPassword, updatedAt) => {
             password = ?,
             updated_at = ?
         WHERE
-            id = ?;
+            user_id = ?;
     `;
   try {
     const [result] = await pool.query(_query, [
@@ -44,6 +45,7 @@ const updateUserPasswordQuery = async (userId, hashPassword, updatedAt) => {
     ]);
     return result.affectedRows > 0 ? true : false;
   } catch (error) {
+    console.error('Error updating user password:', error);
     return Promise.reject(error);
   }
 };
@@ -51,19 +53,25 @@ const updateUserPasswordQuery = async (userId, hashPassword, updatedAt) => {
 const changeUserPassword = async (oldPassword, newPassword, authData) => {
   let hashPassword;
   const updatedAt = format(new Date(), "yyyy-MM-dd HH:mm:ss");
+  const language = authData.lg || 'en';
   try {
     if (_.isEmpty(oldPassword) || _.isEmpty(newPassword)) {
       return Promise.reject(
         setServerResponse(
           API_STATUS_CODE.BAD_REQUEST,
-          "Old password and new password is required"
+          'old_password_and_new_password_is_required',
+          language
         )
       );
     }
     const userInfo = await getUserInfo(authData);
     if (userInfo === false) {
       return Promise.reject(
-        setServerResponse(API_STATUS_CODE.BAD_REQUEST, "User not found")
+        setServerResponse(
+          API_STATUS_CODE.BAD_REQUEST,
+          'user_not_found',
+          language
+        )
       );
     }
     const isPasswordCorrect = await bcrypt.compare(
@@ -74,7 +82,11 @@ const changeUserPassword = async (oldPassword, newPassword, authData) => {
       hashPassword = await bcrypt.hash(newPassword, 10);
     } else {
       return Promise.reject(
-        setServerResponse(API_STATUS_CODE.BAD_REQUEST, "Password mismatched")
+        setServerResponse(
+          API_STATUS_CODE.BAD_REQUEST,
+          'password_mismatched',
+          language
+        )
       );
     }
     const isUpdated = await updateUserPasswordQuery(
@@ -84,21 +96,28 @@ const changeUserPassword = async (oldPassword, newPassword, authData) => {
     );
     if (isUpdated === true) {
       return Promise.resolve(
-        setServerResponse(API_STATUS_CODE.OK, "Password updated successfully")
+        setServerResponse(
+          API_STATUS_CODE.OK,
+          'password_updated_successfully',
+          language
+        )
       );
     } else {
       return Promise.reject(
         setServerResponse(
           API_STATUS_CODE.BAD_REQUEST,
-          "Failed to change password"
+          'failed_to_change_password',
+          language
         )
       );
     }
   } catch (error) {
+    console.error('Change user password error:', error);
     return Promise.reject(
       setServerResponse(
         API_STATUS_CODE.INTERNAL_SERVER_ERROR,
-        "Internal server error"
+        'internal_server_error',
+        language
       )
     );
   }

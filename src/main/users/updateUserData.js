@@ -9,14 +9,14 @@ const checkUserExists = async (userId) => {
         FROM 
             user
         WHERE 
-            is_user_active = 1 AND
-            id = ?;
+            user_id = ?;
     `;
 
   try {
     const [rows] = await pool.query(_query, [userId]);
     return rows.length > 0 ? true : false;
   } catch (error) {
+    console.error('Error checking user exists:', error);
     return Promise.reject(error);
   }
 };
@@ -43,7 +43,7 @@ const updateUserDataQuery = async (userData) => {
   }
 
   // Final WHERE condition
-  _query += ` WHERE id = ?`;
+  _query += ` WHERE user_id = ?`;
   _values.push(userData.userId);
 
   try {
@@ -53,6 +53,7 @@ const updateUserDataQuery = async (userData) => {
     }
     return false;
   } catch (error) {
+    console.error('Error updating user data query:', error);
     return Promise.reject(error);
   }
 };
@@ -60,24 +61,35 @@ const updateUserDataQuery = async (userData) => {
 const updatePersonalInfo = async (userData) => {
   const updatedAt = format(new Date(), "yyyy-MM-dd HH:mm:ss");
   userData = { ...userData, updatedAt: updatedAt };
+  const language = userData.lg || 'en';
   try {
     const isExist = await checkUserExists(userData.userId);
     if (isExist === false) {
       return Promise.resolve(
-        setServerResponse(API_STATUS_CODE.BAD_REQUEST, "User not found")
+        setServerResponse(
+          API_STATUS_CODE.BAD_REQUEST,
+          'user_not_found',
+          language
+        )
       );
     }
     const isUpdated = await updateUserDataQuery(userData);
     if (isUpdated) {
       return Promise.resolve(
-        setServerResponse(API_STATUS_CODE.OK, "Profile updated successfully")
+        setServerResponse(
+          API_STATUS_CODE.OK,
+          'profile_updated_successfully',
+          language
+        )
       );
     }
   } catch (error) {
-    return Promise.resolve(
+    console.error('Update personal info error:', error);
+    return Promise.reject(
       setServerResponse(
         API_STATUS_CODE.INTERNAL_SERVER_ERROR,
-        "Internal server error"
+        'internal_server_error',
+        language
       )
     );
   }

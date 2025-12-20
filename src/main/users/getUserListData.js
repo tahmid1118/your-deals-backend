@@ -5,37 +5,39 @@ const { pool } = require("../../../database/dbPool");
 const getUserListDataQuery = async () => {
   const _query = `
         SELECT
-            id,
+            user_id,
             full_name,
             email
         FROM
-            user
-        WHERE
-            is_user_active = 1;
+            user;
     `;
   try {
     const [rows] = await pool.query(_query);
     return rows;
   } catch (error) {
-    return Promise.resolve(error);
+    console.error('Error getting user list data query:', error);
+    return Promise.reject(error);
   }
 };
 
-const getUserListData = async () => {
+const getUserListData = async (language = 'en') => {
   try {
     const userList = await getUserListDataQuery();
     return Promise.resolve(
       setServerResponse(
         API_STATUS_CODE.OK,
-        "User data fetched successfully",
+        'user_data_fetched_successfully',
+        language,
         userList
       )
     );
   } catch (error) {
-    return Promise.resolve(
+    console.error('Get user list data error:', error);
+    return Promise.reject(
       setServerResponse(
         API_STATUS_CODE.INTERNAL_SERVER_ERROR,
-        "Internal server error"
+        'internal_server_error',
+        language
       )
     );
   }

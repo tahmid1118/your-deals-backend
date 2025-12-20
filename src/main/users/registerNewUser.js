@@ -21,7 +21,7 @@ const checkDuplicateEmail = async (email) => {
     }
     return false;
   } catch (error) {
-    console.log(error);
+    console.error('Error checking duplicate email:', error);
     return Promise.reject(error);
   }
 };
@@ -31,17 +31,15 @@ const insertUserDataQuery = async (userData) => {
         full_name,
         email,
         contact_no,
-        profile_img,
         password
     )
-    VALUES (?, ?, ?, ?, ?);
+    VALUES (?, ?, ?, ?);
 `;
 
   const _values = [
     userData.fullName,
     userData.email,
     userData.contact || null,
-    placeholderImagePath,
     userData.password,
   ];
 
@@ -52,6 +50,7 @@ const insertUserDataQuery = async (userData) => {
     }
     return false;
   } catch (error) {
+    console.error('Error inserting user data:', error);
     return Promise.reject(error);
   }
 };
@@ -61,7 +60,11 @@ const registerNewUser = async (userData) => {
     const isDuplicateEmail = await checkDuplicateEmail(userData.email);
     if (isDuplicateEmail) {
       return Promise.reject(
-        setServerResponse(API_STATUS_CODE.BAD_REQUEST, "Email already exists")
+        setServerResponse(
+          API_STATUS_CODE.BAD_REQUEST,
+          'email_has_already_exist',
+          userData.lg
+        )
       );
     }
 
@@ -73,14 +76,20 @@ const registerNewUser = async (userData) => {
     const insertedData = await insertUserDataQuery(userData);
     if (insertedData === true) {
       return Promise.resolve(
-        setServerResponse(API_STATUS_CODE.OK, "Sign up is successful")
+        setServerResponse(
+          API_STATUS_CODE.OK,
+          'sign_up_is_successful',
+          userData.lg
+        )
       );
     }
   } catch (error) {
+    console.error('Register new user error:', error);
     return Promise.reject(
       setServerResponse(
         API_STATUS_CODE.INTERNAL_SERVER_ERROR,
-        "Internal server error"
+        'internal_server_error',
+        userData.lg
       )
     );
   }

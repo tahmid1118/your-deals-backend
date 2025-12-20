@@ -30,6 +30,7 @@ userRouter.post("/login", userLoginDataValidator, async (req, res) => {
       });
     })
     .catch((error) => {
+      console.error("Login error:", error);
       const { statusCode, status, message } = error;
       return res.status(statusCode).send({
         status: status,
@@ -48,6 +49,7 @@ userRouter.post("/register", userDataValidator, async (req, res) => {
       });
     })
     .catch((error) => {
+      console.error("Registration error:", error);
       const { statusCode, status, message } = error;
       return res.status(statusCode).send({
         status: status,
@@ -162,8 +164,8 @@ userRouter.post("/user-list", authenticateToken, async (req, res) => {
  * It requires the user to be authenticated.
  */
 userRouter.post("/change-password", authenticateToken, async (req, res) => {
-  const { oldPassword, newPassword } = req.body;
-  const authData = req.auth;
+  const { oldPassword, newPassword, lg } = req.body;
+  const authData = { ...req.auth, lg };
   changeUserPassword(oldPassword, newPassword, authData)
     .then((data) => {
       const { statusCode, status, message, result } = data;

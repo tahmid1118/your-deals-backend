@@ -17,6 +17,7 @@ const totalUserTableRowCount = async () => {
     }
     return Promise.resolve(0);
   } catch (error) {
+    console.error('Error getting total user table row count:', error);
     return Promise.reject(error);
   }
 };
@@ -24,11 +25,9 @@ const totalUserTableRowCount = async () => {
 const getUserTableDataQuery = async (paginationData) => {
   const _query = `
         SELECT
-            id,
+            user_id,
            full_name,
             email,
-            is_user_active,
-            profile_img,
             created_at,
             updated_at
         FROM
@@ -43,11 +42,13 @@ const getUserTableDataQuery = async (paginationData) => {
     const [rows] = await pool.query(_query, _values);
     return Promise.resolve(rows);
   } catch (error) {
+    console.error('Error getting user table data query:', error);
     return Promise.reject(error);
   }
 };
 
 const getUserTableData = async (paginationData) => {
+  const language = paginationData.lg || 'en';
   try {
     const totalRows = await totalUserTableRowCount();
     const userData = await getUserTableDataQuery(paginationData);
@@ -61,15 +62,18 @@ const getUserTableData = async (paginationData) => {
     return Promise.resolve(
       setServerResponse(
         API_STATUS_CODE.OK,
-        "User data fetched successfully",
+        'user_data_fetched_successfully',
+        language,
         result
       )
     );
   } catch (error) {
+    console.error('Get user table data error:', error);
     return Promise.reject(
       setServerResponse(
         API_STATUS_CODE.INTERNAL_SERVER_ERROR,
-        "Internal server error"
+        'internal_server_error',
+        language
       )
     );
   }

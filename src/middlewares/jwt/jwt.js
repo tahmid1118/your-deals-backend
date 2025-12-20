@@ -8,8 +8,7 @@ const checkUserId = async (email) => {
     FROM
         user
     WHERE
-        email = ? AND
-        is_user_active = 1;
+        email = ?;
 `;
 
   const values = [email];

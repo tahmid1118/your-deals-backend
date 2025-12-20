@@ -1,38 +1,25 @@
 const _ = require("lodash");
 const { parse, isValid } = require("date-fns");
 
-const taskStatus = [
-  "Not Started",
-  "In Progress",
-  "Done For Review",
-  "In Review",
-  "Done",
-  "Need Modification",
-  "Testing",
-  "Closed",
-];
-
-const taskPriority = ["Low", "Medium", "High", "Urgent", "Clear"];
-
 //username validator
 const isUserNameValid = (userName) => {
-  const minLength = 3;
-  const maxLength = 150;
+    const MINIMUM_LENGTH = 3;
+    const MAXIMUM_LENGTH = 150;
 
-  if (userName.length < minLength) {
-    return "User name must be at least 3 characters";
-  }
-  if (userName.length > maxLength) {
-    return "User name must not exceed 150 characters";
-  }
-  return true;
-};
+    if (userName.length < MINIMUM_LENGTH) {
+        return 'user_name_must_be_at_least_3_characters';
+    }
+    if (userName.length > MAXIMUM_LENGTH) {
+        return 'user_name_must_not_exceed_150_characters';
+    }
+    return true;
+}
 
 //email validator
 const isEmailValid = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return "Invalid email address";
+    return 'invalid_email_address';
   }
   return true;
 };
@@ -42,7 +29,7 @@ const isPhoneNumberValid = (phoneNumber) => {
   const minLength = 10;
   const maxLength = 15;
   if (phoneNumber.length < minLength || phoneNumber.length > maxLength) {
-    return "Invalid phone number";
+    return 'invalid_user_phone_number';
   }
   return true;
 };
@@ -51,37 +38,10 @@ const isPhoneNumberValid = (phoneNumber) => {
 const commonStringDataValid = (commonData) => {
   const maxLength = 200;
   if (commonData.length > maxLength) {
-    return "Value must not exceed 200 characters";
+    return 'value_must_not_exceed_200_characters';
   }
   if (typeof commonData !== "string") {
-    return "String data is required";
-  }
-  return true;
-};
-
-//description validator
-const isDescriptionValid = (description) => {
-  const maxLength = 500;
-  if (description.length > 0) {
-    if (description.length > maxLength) {
-      return "Description must not exceed 500 characters";
-    }
-  }
-  return true;
-};
-
-//task status validator
-const isValidTaskStatus = (status) => {
-  if (!taskStatus.includes(status)) {
-    return "Invalid task status";
-  }
-  return true;
-};
-
-//task priority validator
-const isValidTaskPriority = (priority) => {
-  if (!taskPriority.includes(priority)) {
-    return "Invalid task priority";
+    return 'string_data_is_required';
   }
   return true;
 };
@@ -91,22 +51,22 @@ const isPasswordValid = (password) => {
   const minLength = 6;
 
   if (password.length < minLength) {
-    return "Password must be at least 6 characters";
+    return 'password_is_required';
   }
 
   // Check for uppercase letter
   if (!/[A-Z]/.test(password)) {
-    return "Password must contain at least one uppercase letter";
+    return 'password_must_contain_uppercase';
   }
 
   // Check for lowercase letter
   if (!/[a-z]/.test(password)) {
-    return "Password must contain at least one lowercase letter";
+    return 'password_must_contain_lowercase';
   }
 
   // Check for special character
   if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
-    return "Password must contain at least one special character";
+    return 'password_must_contain_special_character';
   }
 
   return true;
@@ -117,8 +77,5 @@ module.exports = {
   isEmailValid,
   isPhoneNumberValid,
   commonStringDataValid,
-  isDescriptionValid,
-  isValidTaskStatus,
-  isValidTaskPriority,
   isPasswordValid,
 };

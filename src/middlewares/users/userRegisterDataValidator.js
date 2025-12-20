@@ -11,6 +11,7 @@ const {
 const userDataValidator = async (req, res, next) => {
   const updateUrl = req.originalUrl === "/users/update";
   const userData = {
+    lg: req.body.lg || 'en',
     userId: req.body.userId,
     fullName: req.body.fullName,
     email: req.body.email,
@@ -18,12 +19,29 @@ const userDataValidator = async (req, res, next) => {
     contact: req.body.contact,
   };
 
+  // Check if language is provided
+  if (_.isEmpty(userData.lg)) {
+    return res
+      .status(API_STATUS_CODE.BAD_REQUEST)
+      .send(
+        setServerResponse(
+          API_STATUS_CODE.BAD_REQUEST,
+          'language_is_required',
+          'en'
+        )
+      );
+  }
+
   if (updateUrl) {
     if (_.isNil(userData.userId) || !_.isNumber(userData.userId)) {
       return res
         .status(API_STATUS_CODE.BAD_REQUEST)
         .send(
-          setServerResponse(API_STATUS_CODE.BAD_REQUEST, "User id is required")
+          setServerResponse(
+            API_STATUS_CODE.BAD_REQUEST,
+            'user_id_is_required',
+            userData.lg
+          )
         );
     }
   } else {
@@ -37,7 +55,13 @@ const userDataValidator = async (req, res, next) => {
       if (isValid !== true) {
         return res
           .status(API_STATUS_CODE.BAD_REQUEST)
-          .send(setServerResponse(API_STATUS_CODE.BAD_REQUEST, isValid));
+          .send(
+            setServerResponse(
+              API_STATUS_CODE.BAD_REQUEST,
+              isValid,
+              userData.lg
+            )
+          );
       }
     }
   } else {
@@ -47,7 +71,8 @@ const userDataValidator = async (req, res, next) => {
         .send(
           setServerResponse(
             API_STATUS_CODE.BAD_REQUEST,
-            "User full name is required"
+            'user_full_name_is_required',
+            userData.lg
           )
         );
     } else {
@@ -55,7 +80,13 @@ const userDataValidator = async (req, res, next) => {
       if (isValid !== true) {
         return res
           .status(API_STATUS_CODE.BAD_REQUEST)
-          .send(setServerResponse(API_STATUS_CODE.BAD_REQUEST, isValid));
+          .send(
+            setServerResponse(
+              API_STATUS_CODE.BAD_REQUEST,
+              isValid,
+              userData.lg
+            )
+          );
       }
     }
   }
@@ -68,7 +99,8 @@ const userDataValidator = async (req, res, next) => {
         .send(
           setServerResponse(
             API_STATUS_CODE.BAD_REQUEST,
-            "Invalid email address"
+            'invalid_email_address',
+            userData.lg
           )
         );
     } else {
@@ -76,7 +108,13 @@ const userDataValidator = async (req, res, next) => {
       if (isValid !== true) {
         return res
           .status(API_STATUS_CODE.BAD_REQUEST)
-          .send(setServerResponse(API_STATUS_CODE.BAD_REQUEST, isValid));
+          .send(
+            setServerResponse(
+              API_STATUS_CODE.BAD_REQUEST,
+              isValid,
+              userData.lg
+            )
+          );
       }
     }
   } else {
@@ -87,14 +125,24 @@ const userDataValidator = async (req, res, next) => {
     return res
       .status(API_STATUS_CODE.BAD_REQUEST)
       .send(
-        setServerResponse(API_STATUS_CODE.BAD_REQUEST, "Password is required")
+        setServerResponse(
+          API_STATUS_CODE.BAD_REQUEST,
+          'password_is_required',
+          userData.lg
+        )
       );
   } else {
     const isValid = isPasswordValid(userData.password);
     if (isValid !== true) {
       return res
         .status(API_STATUS_CODE.BAD_REQUEST)
-        .send(setServerResponse(API_STATUS_CODE.BAD_REQUEST, isValid));
+        .send(
+          setServerResponse(
+            API_STATUS_CODE.BAD_REQUEST,
+            isValid,
+            userData.lg
+          )
+        );
     }
   }
 
@@ -103,7 +151,13 @@ const userDataValidator = async (req, res, next) => {
     if (isValid !== true) {
       return res
         .status(API_STATUS_CODE.BAD_REQUEST)
-        .send(setServerResponse(API_STATUS_CODE.BAD_REQUEST, isValid));
+        .send(
+          setServerResponse(
+            API_STATUS_CODE.BAD_REQUEST,
+            isValid,
+            userData.lg
+          )
+        );
     }
   }
 
