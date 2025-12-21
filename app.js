@@ -7,6 +7,9 @@ const cors = require("cors");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const { userRouter } = require("./src/routes/users/usersRoute");
+const { categoryRouter } = require("./src/routes/category/categoryRoute");
+const { shopRouter } = require("./src/routes/shop/shopRoute");
+const { branchRouter } = require("./src/routes/branch/branchRoute");
 // --- Middleware ---
 app.use(bodyParser.json());
 app.use(morgan("combined"));
@@ -23,6 +26,9 @@ app.use(express.json({ limit: "10mb" }));
 
 // --- Routes ---
 app.use("/users", userRouter);
+app.use("/category", categoryRouter);
+app.use("/shop", shopRouter);
+app.use("/branch", branchRouter);
 
 
 // --- Static Files ---
