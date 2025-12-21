@@ -30,10 +30,10 @@ const updateUserDataQuery = async (userData) => {
     _values.push(userData.fullName);
   }
 
-  if (userData.phone) {
+  if (userData.contact) {
     if (_values.length > 0) _query += ", ";
     _query += `contact_no = ? `;
-    _values.push(userData.phone);
+    _values.push(userData.contact);
   }
 
   if (_values.length > 0) {

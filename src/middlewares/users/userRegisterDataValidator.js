@@ -121,29 +121,34 @@ const userDataValidator = async (req, res, next) => {
     delete userData.email; //email cannot be updated
   }
 
-  if (!userData.password) {
-    return res
-      .status(API_STATUS_CODE.BAD_REQUEST)
-      .send(
-        setServerResponse(
-          API_STATUS_CODE.BAD_REQUEST,
-          'password_is_required',
-          userData.lg
-        )
-      );
-  } else {
-    const isValid = isPasswordValid(userData.password);
-    if (isValid !== true) {
+  // Check password only for registration, not for update
+  if (!updateUrl) {
+    if (!userData.password) {
       return res
         .status(API_STATUS_CODE.BAD_REQUEST)
         .send(
           setServerResponse(
             API_STATUS_CODE.BAD_REQUEST,
-            isValid,
+            'password_is_required',
             userData.lg
           )
         );
+    } else {
+      const isValid = isPasswordValid(userData.password);
+      if (isValid !== true) {
+        return res
+          .status(API_STATUS_CODE.BAD_REQUEST)
+          .send(
+            setServerResponse(
+              API_STATUS_CODE.BAD_REQUEST,
+              isValid,
+              userData.lg
+            )
+          );
+      }
     }
+  } else {
+    delete userData.password; //password cannot be updated via update API
   }
 
   if (userData.contact) {

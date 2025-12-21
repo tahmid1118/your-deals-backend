@@ -34,7 +34,8 @@
         "password_mismatched": "Password mismatched",
         "password_changed_successfully": "Password changed successfully",
         "password_updated_successfully": "Password updated successfully",
-        "failed_to_change_password": "Failed to change password"
+        "failed_to_change_password": "Failed to change password",
+        "invalid_pagination_data": "Invalid pagination data"
     },
     "bn": {
         "success": "সফল",
@@ -71,6 +72,7 @@
         "password_mismatched": "পাসওয়ার্ড মিলছে না",
         "password_changed_successfully": "পাসওয়ার্ড সফলভাবে পরিবর্তন হয়েছে",
         "password_updated_successfully": "পাসওয়ার্ড সফলভাবে আপডেট হয়েছে",
-        "failed_to_change_password": "পাসওয়ার্ড পরিবর্তন করতে ব্যর্থ"
+        "failed_to_change_password": "পাসওয়ার্ড পরিবর্তন করতে ব্যর্থ",
+        "invalid_pagination_data": "অবৈধ পেজিনেশন ডেটা"
     }
 }

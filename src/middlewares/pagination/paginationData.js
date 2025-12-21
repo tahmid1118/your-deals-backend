@@ -19,6 +19,7 @@ const paginationData = (req, res, next) => {
   const currentPageNumberDefault = 0;
   const filterBy = "";
   const sortOrder = "desc";
+  const language = req.body.lg || 'en';
   const _itemsPerPage = req.body.paginationData.itemsPerPage;
   const _currentPageNumber = req.body.paginationData.currentPageNumber;
   const _sortOrder = req.body.paginationData.sortOrder;
@@ -51,7 +52,8 @@ const paginationData = (req, res, next) => {
       .send(
         setServerResponse(
           API_STATUS_CODE.BAD_REQUEST,
-          "Invalid pagination data"
+          "invalid_pagination_data",
+          language
         )
       );
   }
@@ -61,6 +63,7 @@ const paginationData = (req, res, next) => {
     currentPageNumber: currentPageNumber || currentPageNumberDefault,
     filterBy: _filterBy || filterBy,
     sortOrder: _sortOrder || sortOrder,
+    lg: language,
   };
   req.body.paginationData = {
     ...paginationData,
