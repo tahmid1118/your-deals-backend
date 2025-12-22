@@ -10,6 +10,8 @@ const { userRouter } = require("./src/routes/users/usersRoute");
 const { categoryRouter } = require("./src/routes/category/categoryRoute");
 const { shopRouter } = require("./src/routes/shop/shopRoute");
 const { branchRouter } = require("./src/routes/branch/branchRoute");
+const { dealRouter } = require("./src/routes/deal/dealRoute");
+const { fileUploadRouter } = require("./src/routes/file-uploader/file-upload-route");
 // --- Middleware ---
 app.use(bodyParser.json());
 app.use(morgan("combined"));
@@ -28,11 +30,13 @@ app.use(express.json({ limit: "10mb" }));
 app.use("/users", userRouter);
 app.use("/category", categoryRouter);
 app.use("/shop", shopRouter);
+app.use("/deal", dealRouter);
 app.use("/branch", branchRouter);
+app.use("/uploader", fileUploadRouter);
 
 
 // --- Static Files ---
-const staticFilePath = path.join(__dirname, "../uploads");
+const staticFilePath = path.join(__dirname, "uploads");
 app.use("/uploads", express.static(staticFilePath));
 
 // --- Server Start ---

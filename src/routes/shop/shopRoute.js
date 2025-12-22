@@ -4,6 +4,7 @@ const shopRouter = express.Router();
 const {
   shopDataValidator,
 } = require("../../middlewares/shop/shopDataValidator");
+const { languageValidator } = require("../../middlewares/common/languageValidator");
 const { createShop } = require("../../main/shop/createShop");
 const { authenticateToken } = require("../../middlewares/jwt/jwt");
 const { getShopTableData } = require("../../main/shop/getShopTableData");
@@ -71,7 +72,7 @@ shopRouter.post(
  * @description This route is used to return shop list.
  * It requires authentication.
  */
-shopRouter.post("/shop-list", authenticateToken, async (req, res) => {
+shopRouter.post("/shop-list", authenticateToken, languageValidator, async (req, res) => {
   const { lg } = req.body;
   getShopListData(lg)
     .then((data) => {
@@ -122,7 +123,7 @@ shopRouter.post(
  * @description This route is used to delete a shop.
  * It requires authentication.
  */
-shopRouter.post("/delete", authenticateToken, async (req, res) => {
+shopRouter.post("/delete", authenticateToken, languageValidator, async (req, res) => {
   const { shopId, lg } = req.body;
   
   if (!shopId) {

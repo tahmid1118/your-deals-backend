@@ -12,7 +12,7 @@ const userDataValidator = async (req, res, next) => {
   const updateUrl = req.originalUrl === "/users/update";
   const userData = {
     lg: req.body.lg || 'en',
-    userId: req.body.userId,
+    userId: req.body.userId ? parseInt(req.body.userId) : undefined,
     fullName: req.body.fullName,
     email: req.body.email,
     password: req.body.password,

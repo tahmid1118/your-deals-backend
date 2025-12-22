@@ -7,7 +7,7 @@ const shopDataValidator = async (req, res, next) => {
   const updateUrl = req.originalUrl === "/shop/update";
   const shopData = {
     lg: req.body.lg || 'en',
-    shopId: req.body.shopId,
+    shopId: req.body.shopId ? parseInt(req.body.shopId) : undefined,
     shopName: req.body.shopName,
     shopDetails: req.body.shopDetails,
     shopEmail: req.body.shopEmail,

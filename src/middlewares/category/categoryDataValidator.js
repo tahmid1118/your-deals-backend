@@ -6,7 +6,7 @@ const categoryDataValidator = async (req, res, next) => {
   const updateUrl = req.originalUrl === "/category/update";
   const categoryData = {
     lg: req.body.lg || 'en',
-    categoryId: req.body.categoryId,
+    categoryId: req.body.categoryId ? parseInt(req.body.categoryId) : undefined,
     categoryTitle: req.body.categoryTitle,
     categoryDescription: req.body.categoryDescription,
     targetCustomer: req.body.targetCustomer,

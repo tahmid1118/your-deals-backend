@@ -4,6 +4,8 @@ const branchRouter = express.Router();
 const {
   branchDataValidator,
 } = require("../../middlewares/branch/branchDataValidator");
+const { checkShopExists } = require("../../middlewares/common/checkShopExists");
+const { languageValidator } = require("../../middlewares/common/languageValidator");
 const { createBranch } = require("../../main/branch/createBranch");
 const { authenticateToken } = require("../../middlewares/jwt/jwt");
 const { getBranchTableData } = require("../../main/branch/getBranchTableData");
@@ -18,7 +20,7 @@ const { deleteBranch } = require("../../main/branch/deleteBranch");
  * @description This route is used to create a new branch.
  * It requires authentication.
  */
-branchRouter.post("/create", authenticateToken, branchDataValidator, async (req, res) => {
+branchRouter.post("/create", authenticateToken, checkShopExists, branchDataValidator, async (req, res) => {
   createBranch(req.body.branchData)
     .then((data) => {
       const { statusCode, status, message } = data;
@@ -71,7 +73,7 @@ branchRouter.post(
  * @description This route is used to return branch list.
  * It requires authentication.
  */
-branchRouter.post("/branch-list", authenticateToken, async (req, res) => {
+branchRouter.post("/branch-list", authenticateToken, languageValidator, async (req, res) => {
   const { shopId, lg } = req.body;
   getBranchListData(shopId, lg)
     .then((data) => {
@@ -98,6 +100,7 @@ branchRouter.post("/branch-list", authenticateToken, async (req, res) => {
 branchRouter.post(
   "/update",
   authenticateToken,
+  checkShopExists,
   branchDataValidator,
   async (req, res) => {
     updateBranch(req.body.branchData)
@@ -122,7 +125,7 @@ branchRouter.post(
  * @description This route is used to delete a branch.
  * It requires authentication.
  */
-branchRouter.post("/delete", authenticateToken, async (req, res) => {
+branchRouter.post("/delete", authenticateToken, languageValidator, async (req, res) => {
   const { branchId, lg } = req.body;
   
   if (!branchId) {

@@ -6,12 +6,12 @@ const branchDataValidator = async (req, res, next) => {
   const updateUrl = req.originalUrl === "/branch/update";
   const branchData = {
     lg: req.body.lg || 'en',
-    branchId: req.body.branchId,
+    branchId: req.body.branchId ? parseInt(req.body.branchId) : undefined,
     branchName: req.body.branchName,
     branchLocation: req.body.branchLocation,
     branchAddress: req.body.branchAddress,
     branchArea: req.body.branchArea,
-    shopId: req.body.shopId,
+    shopId: req.body.shopId ? parseInt(req.body.shopId) : undefined,
   };
 
   // Check if language is provided

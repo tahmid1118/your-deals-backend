@@ -8,6 +8,7 @@ const { userLogin } = require("../../main/users/userLogin");
 const {
   userDataValidator,
 } = require("../../middlewares/users/userRegisterDataValidator");
+const { languageValidator } = require("../../middlewares/common/languageValidator");
 const { registerNewUser } = require("../../main/users/registerNewUser");
 const { authenticateToken } = require("../../middlewares/jwt/jwt");
 const { getPersonalData } = require("../../main/users/gerUserPersonalData");
@@ -140,8 +141,9 @@ userRouter.post(
  * @description This route is used to return user list.
  * It requires the user to be authenticated.
  */
-userRouter.post("/user-list", authenticateToken, async (req, res) => {
-  getUserListData()
+userRouter.post("/user-list", authenticateToken, languageValidator, async (req, res) => {
+  const { lg } = req.body;
+  getUserListData(lg)
     .then((data) => {
       const { statusCode, status, message, result } = data;
       return res.status(statusCode).send({
@@ -163,7 +165,7 @@ userRouter.post("/user-list", authenticateToken, async (req, res) => {
  * @description This route is used to change user password.
  * It requires the user to be authenticated.
  */
-userRouter.post("/change-password", authenticateToken, async (req, res) => {
+userRouter.post("/change-password", authenticateToken, languageValidator, async (req, res) => {
   const { oldPassword, newPassword, lg } = req.body;
   const authData = { ...req.auth, lg };
   changeUserPassword(oldPassword, newPassword, authData)
