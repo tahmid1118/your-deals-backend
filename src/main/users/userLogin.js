@@ -18,7 +18,8 @@ const userLoginQuery = async (email) => {
             user_id,
             full_name,
             email,
-            password
+            password,
+            image_url
         FROM
             user
         WHERE
@@ -125,6 +126,7 @@ const userLogin = async (userData) => {
         id: userInfo.user_id,
         fullName: userInfo.full_name,
         email: userInfo.email,
+        imageUrl: userInfo.image_url,
     }
 
     return Promise.resolve(
