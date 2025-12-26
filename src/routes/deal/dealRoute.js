@@ -71,7 +71,6 @@ dealRouter.post(
  */
 dealRouter.post(
   "/table-data",
-  authenticateToken,
   paginationData,
   async (req, res) => {
     const { paginationData, filter = {} } = req.body;
