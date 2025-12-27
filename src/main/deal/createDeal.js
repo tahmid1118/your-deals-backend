@@ -18,10 +18,11 @@ const insertDealDataQuery = async (dealData, thumbnailPath) => {
         deal_type,
         deal_start_datetime,
         deal_end_datetime,
+        rating,
         branch_id,
         shop_id
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 `;
 
   const _values = [
@@ -35,6 +36,7 @@ const insertDealDataQuery = async (dealData, thumbnailPath) => {
     dealData.dealType || null,
     dealData.dealStartDatetime || null,
     dealData.dealEndDatetime || null,
+    dealData.rating || null,
     dealData.branchId || null,
     dealData.shopId,
   ];

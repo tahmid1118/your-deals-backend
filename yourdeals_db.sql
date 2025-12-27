@@ -126,6 +126,7 @@ CREATE TABLE `deal` (
   `deal_type` varchar(100) DEFAULT NULL,
   `deal_start_datetime` datetime DEFAULT NULL,
   `deal_end_datetime` datetime DEFAULT NULL,
+  `rating` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `branch_id` int(11) DEFAULT NULL,

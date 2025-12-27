@@ -12,6 +12,7 @@ const getDealListData = async (lg) => {
         d.deal_type,
         d.deal_start_datetime,
         d.deal_end_datetime,
+        d.rating,
         s.shop_name,
         b.branch_name
     FROM

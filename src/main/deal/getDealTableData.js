@@ -75,6 +75,7 @@ const getDealTableData = async (paginationData, filters = {}) => {
         d.deal_type,
         d.deal_start_datetime,
         d.deal_end_datetime,
+        d.rating,
         d.created_at,
         d.updated_at,
         d.branch_id,
@@ -83,7 +84,7 @@ const getDealTableData = async (paginationData, filters = {}) => {
         b.branch_name
     ${baseQuery}
     ${whereClause}
-    ORDER BY d.created_at DESC
+    ORDER BY d.rating DESC, d.created_at DESC
     LIMIT ? OFFSET ?;
   `;
 

@@ -16,6 +16,7 @@ const dealDataValidator = async (req, res, next) => {
     dealType: req.body.dealType,
     dealStartDatetime: req.body.dealStartDatetime,
     dealEndDatetime: req.body.dealEndDatetime,
+    rating: req.body.rating ? parseInt(req.body.rating) : undefined,
     branchId: req.body.branchId ? parseInt(req.body.branchId) : undefined,
     shopId: req.body.shopId ? parseInt(req.body.shopId) : undefined,
   };
@@ -169,6 +170,21 @@ const dealDataValidator = async (req, res, next) => {
           dealData.lg
         )
       );
+  }
+
+  // Validate rating
+  if (!_.isNil(dealData.rating)) {
+    if (!_.isInteger(dealData.rating) || dealData.rating < 0) {
+      return res
+        .status(API_STATUS_CODE.BAD_REQUEST)
+        .send(
+          setServerResponse(
+            API_STATUS_CODE.BAD_REQUEST,
+            'rating_must_be_a_non_negative_integer',
+            dealData.lg
+          )
+        );
+    }
   }
 
   // Validate shop ID

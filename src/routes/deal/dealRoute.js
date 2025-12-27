@@ -145,7 +145,6 @@ dealRouter.post("/deal-list", authenticateToken, languageValidator, async (req, 
  */
 dealRouter.post(
   "/update",
-  authenticateToken,
   upload.single('deal_thumbnail'),
   checkShopExists,
   checkBranchExists,

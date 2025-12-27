@@ -104,6 +104,10 @@ const updateDealDataQuery = async (dealData, thumbnailPath) => {
     updateFields.push('deal_end_datetime = ?');
     values.push(dealData.dealEndDatetime || null);
   }
+  if (dealData.rating !== undefined) {
+    updateFields.push('rating = ?');
+    values.push(dealData.rating || null);
+  }
   if (dealData.branchId !== undefined) {
     updateFields.push('branch_id = ?');
     values.push(dealData.branchId || null);
