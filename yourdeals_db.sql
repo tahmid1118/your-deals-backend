@@ -162,16 +162,38 @@ INSERT INTO `deal` (`deal_id`, `deal_title`, `deal_details`, `deal_thumbnail`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `deal_category`
---
 
 CREATE TABLE `deal_category` (
   `deal_id` int(11) NOT NULL,
-  `shop_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
+
+--
+-- Dumping data for table `deal_category`
+--
+
+INSERT INTO `deal_category` (`deal_id`, `category_id`) VALUES
+(1, 5),
+(1, 10),
+(2, 1),
+(2, 2),
+(3, 3),
+(3, 4),
+(4, 6),
+(5, 7),
+(6, 8),
+(7, 9),
+(8, 11),
+(9, 12),
+(10, 13),
+(11, 14),
+(12, 15),
+(13, 16),
+(14, 17),
+(15, 18),
+(16, 19),
+(17, 20);
 
 --
 -- Table structure for table `shop`
@@ -216,16 +238,13 @@ INSERT INTO `shop` (`shop_id`, `shop_name`, `shop_details`, `shop_email`, `shop_
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `shop_category`
---
 
 CREATE TABLE `shop_category` (
   `shop_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
+
 
 --
 -- Table structure for table `user`
@@ -281,8 +300,7 @@ ALTER TABLE `deal`
 -- Indexes for table `deal_category`
 --
 ALTER TABLE `deal_category`
-  ADD PRIMARY KEY (`deal_id`,`category_id`),
-  ADD KEY `fk_dc_shop_category` (`shop_id`,`category_id`);
+  ADD PRIMARY KEY (`deal_id`,`category_id`);
 
 --
 -- Indexes for table `shop`
@@ -291,11 +309,10 @@ ALTER TABLE `shop`
   ADD PRIMARY KEY (`shop_id`);
 
 --
--- Indexes for table `shop_category`
---
 ALTER TABLE `shop_category`
   ADD PRIMARY KEY (`shop_id`,`category_id`),
   ADD KEY `fk_sc_category` (`category_id`);
+
 
 --
 -- Indexes for table `user`
@@ -355,18 +372,14 @@ ALTER TABLE `deal`
   ADD CONSTRAINT `fk_deal_shop` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`shop_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `deal_category`
---
 ALTER TABLE `deal_category`
-  ADD CONSTRAINT `fk_dc_deal` FOREIGN KEY (`deal_id`) REFERENCES `deal` (`deal_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_dc_shop_category` FOREIGN KEY (`shop_id`,`category_id`) REFERENCES `shop_category` (`shop_id`, `category_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_dc_deal` FOREIGN KEY (`deal_id`) REFERENCES `deal` (`deal_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Constraints for table `shop_category`
 --
 ALTER TABLE `shop_category`
   ADD CONSTRAINT `fk_sc_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_sc_shop` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`shop_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

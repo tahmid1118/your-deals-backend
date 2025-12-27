@@ -1,18 +1,85 @@
+
+// ================= IMPORTS =================
 const express = require("express");
 const multer = require("multer");
 const dealRouter = express.Router();
-
+  const db = require("../../../database/dbPool");
 const { dealDataValidator } = require("../../middlewares/deal/dealDataValidator");
 const { checkShopExists } = require("../../middlewares/common/checkShopExists");
 const { checkBranchExists } = require("../../middlewares/common/checkBranchExists");
 const { languageValidator } = require("../../middlewares/common/languageValidator");
 const { createDeal } = require("../../main/deal/createDeal");
 const { authenticateToken } = require("../../middlewares/jwt/jwt");
+const { getDealDetails } = require("../../main/deal/getDealDetails");
 const { getDealTableData } = require("../../main/deal/getDealTableData");
 const { paginationData } = require("../../middlewares/pagination/paginationData");
 const { getDealListData } = require("../../main/deal/getDealListData");
 const { updateDeal } = require("../../main/deal/updateDeal");
 const { deleteDeal } = require("../../main/deal/deleteDeal");
+
+// ================= ROUTES & LOGIC =================
+
+/**
+ * @description This route takes an array of categoryIds and returns 5 random deals (from the top 10 by rating) that match any of those categories.
+ * It requires authentication.
+ */
+const { getRandomTopDeals } = require("../../main/deal/getRandomTopDeals");
+dealRouter.post("/random-top-deals", async (req, res) => {
+  const { categoryIds, lg, dealId } = req.body;
+  if (!Array.isArray(categoryIds) || categoryIds.length === 0) {
+    return res.status(400).send({
+      status: "failed",
+      message: "categoryIds (array) is required",
+    });
+  }
+
+  getRandomTopDeals(categoryIds, lg, dealId)
+    .then((data) => {
+      const { statusCode = 200, status, message, result } = data;
+      return res.status(statusCode).send({
+        status: status,
+        message: message,
+        data: result,
+      });
+    })
+    .catch((error) => {
+      console.error("Random top deals error:", error);
+      const { statusCode = 500, status = "failed", message = "Internal server error" } = error || {};
+      return res.status(statusCode).send({
+        status: status,
+        message: message,
+      });
+    });
+});
+/**
+ * @description This route is used to fetch deal details by deal id.
+ * It requires authentication.
+ */
+dealRouter.post("/details", languageValidator, async (req, res) => {
+  const { dealId, lg } = req.body;
+  if (!dealId) {
+    return res.status(400).send({
+      status: "failed",
+      message: "Deal ID is required",
+    });
+  }
+  getDealDetails(dealId, lg)
+    .then((data) => {
+      const { statusCode, status, message, result } = data;
+      return res.status(statusCode).send({
+        status: status,
+        message: message,
+        data: result,
+      });
+    })
+    .catch((error) => {
+      const { statusCode, status, message } = error;
+      return res.status(statusCode).send({
+        status: status,
+        message: message,
+      });
+    });
+});
 
 // Multer configuration for thumbnail upload
 const upload = multer({
