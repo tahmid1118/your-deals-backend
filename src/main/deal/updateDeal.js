@@ -40,18 +40,18 @@ const processThumbnail = async (buffer) => {
       .toBuffer();
 
     fs.writeFileSync(absolutePath, resizedImage);
-    return relativePath;
+    return fileName; // Return only the filename, not the full path
   } catch (error) {
     console.error('Error processing thumbnail:', error);
     return Promise.reject(error);
   }
 };
 
-const deleteThumbnail = (thumbnailPath) => {
-  if (!thumbnailPath) return;
+const deleteThumbnail = (thumbnailFileName) => {
+  if (!thumbnailFileName) return;
   
   try {
-    const absolutePath = path.join(process.cwd(), thumbnailPath);
+    const absolutePath = path.join(process.cwd(), 'uploads/deal-thumbnails', thumbnailFileName);
     if (fs.existsSync(absolutePath)) {
       fs.unlinkSync(absolutePath);
     }

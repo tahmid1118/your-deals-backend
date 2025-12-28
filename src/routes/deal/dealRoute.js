@@ -85,6 +85,11 @@ dealRouter.post("/details", languageValidator, async (req, res) => {
 const upload = multer({
   storage: multer.memoryStorage(),
   fileFilter: (req, file, cb) => {
+    // Only validate if the field name matches
+    if (file.fieldname !== 'dealThumbnail') {
+      cb(new Error(`Unexpected field: ${file.fieldname}. Expected 'dealThumbnail'`));
+      return;
+    }
     const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
@@ -104,7 +109,7 @@ const upload = multer({
 dealRouter.post(
   "/create",
   authenticateToken,
-  upload.single('deal_thumbnail'),
+  upload.single('dealThumbnail'),
   checkShopExists,
   checkBranchExists,
   dealDataValidator,
@@ -212,7 +217,30 @@ dealRouter.post("/deal-list", authenticateToken, languageValidator, async (req, 
  */
 dealRouter.post(
   "/update",
-  upload.single('deal_thumbnail'),
+  authenticateToken,
+  (req, res, next) => {
+    // Use multer with error handling for optional file upload
+    upload.single('dealThumbnail')(req, res, (err) => {
+      if (err instanceof multer.MulterError) {
+        if (err.code === 'UNEXPECTED_FIELD') {
+          return res.status(400).send({
+            status: "failed",
+            message: `Unexpected field: ${err.field}. Expected field name is 'dealThumbnail'`,
+          });
+        }
+        return res.status(400).send({
+          status: "failed",
+          message: err.message,
+        });
+      } else if (err) {
+        return res.status(400).send({
+          status: "failed",
+          message: err.message,
+        });
+      }
+      next();
+    });
+  },
   checkShopExists,
   checkBranchExists,
   dealDataValidator,

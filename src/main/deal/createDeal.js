@@ -73,7 +73,7 @@ const processThumbnail = async (buffer) => {
       .toBuffer();
 
     fs.writeFileSync(absolutePath, resizedImage);
-    return relativePath;
+    return fileName; // Return only the filename, not the full path
   } catch (error) {
     console.error('Error processing thumbnail:', error);
     return Promise.reject(error);
