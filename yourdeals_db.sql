@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2025 at 01:53 PM
+-- Generation Time: Jan 05, 2026 at 06:40 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,9 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `yourdeals_db`
 --
-
-CREATE DATABASE IF NOT EXISTS `yourdeals_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `yourdeals_db`;
 
 -- --------------------------------------------------------
 
@@ -137,37 +134,37 @@ CREATE TABLE `deal` (
 -- Dumping data for table `deal`
 --
 
-INSERT INTO `deal` (`deal_id`, `deal_title`, `deal_details`, `deal_thumbnail`, `source_facebook`, `source_website`, `source_instagram`, `deal_channel`, `deal_type`, `deal_start_datetime`, `deal_end_datetime`, `created_at`, `updated_at`, `branch_id`, `shop_id`) VALUES
-(1, 'Winter Sale 50% Off', 'Get 50% discount on all winter collection items', '447974391_335726956291614_3457715464352453163_n.jpg', 'fb.com/fashionhub', 'fashionhub.com', 'instagram.com/fashionhub', 'both', 'seasonal', '2025-12-20 00:00:00', '2026-01-31 23:59:59', '2025-12-26 10:00:00', NULL, 1, 1),
-(2, 'Buy 2 Get 1 Free', 'Purchase any two items and get one free', '470545056_510398875491087_7792261206238131915_n.jpg', 'fb.com/fashionhub', 'fashionhub.com', 'instagram.com/fashionhub', 'physical', 'promotional', '2025-12-26 00:00:00', '2026-01-15 23:59:59', '2025-12-26 10:00:00', NULL, 2, 1),
-(3, 'New Year Mega Sale', 'Celebrate new year with up to 70% discount', '470607269_510378312159810_1257260679795376347_n.jpg', 'fb.com/stylegallery', 'stylegallery.com', 'instagram.com/stylegallery', 'online', 'seasonal', '2025-12-31 00:00:00', '2026-01-10 23:59:59', '2025-12-26 10:00:00', NULL, 3, 2),
-(4, 'Flash Sale: 24 Hours Only', 'Limited time offer - 40% off on selected items', '470746382_510398665491108_3938817974956477131_n.jpg', 'fb.com/stylegallery', 'stylegallery.com', 'instagram.com/stylegallery', 'both', 'flash', '2025-12-27 00:00:00', '2025-12-28 00:00:00', '2025-12-26 10:00:00', NULL, 4, 2),
-(5, 'Weekend Special Offer', 'Extra 30% off on weekend shopping', '470796823_510397568824551_8822883877595019429_n.jpg', 'fb.com/trendycloset', 'trendycloset.com', 'instagram.com/trendycloset', 'physical', 'weekend', '2025-12-28 00:00:00', '2025-12-29 23:59:59', '2025-12-26 10:00:00', NULL, 5, 3),
-(6, 'Student Discount 25%', 'Special discount for students with valid ID', '526079036_728209483460552_7023137644665283694_n.jpg', 'fb.com/elitewear', 'elitewear.com', 'instagram.com/elitewear', 'both', 'student', '2025-12-26 00:00:00', '2026-03-31 23:59:59', '2025-12-26 10:00:00', NULL, 6, 4),
-(7, 'Clearance Sale Up to 60%', 'End of season clearance - massive discounts', '541460618_750460854568748_6826875349311602043_n.jpg', 'fb.com/urbanstyle', 'urbanstyle.com', 'instagram.com/urbanstyle', 'physical', 'clearance', '2025-12-26 00:00:00', '2026-01-20 23:59:59', '2025-12-26 10:00:00', NULL, 7, 5),
-(8, 'Free Shipping on Orders Above 2000', 'No shipping charges for orders above BDT 2000', '549606228_1221209440040065_5816350683428944226_n.jpg', 'fb.com/classicattire', 'classicattire.com', 'instagram.com/classicattire', 'online', 'shipping', '2025-12-26 00:00:00', '2026-02-28 23:59:59', '2025-12-26 10:00:00', NULL, 8, 6),
-(9, 'Flat 500 BDT Off', 'Get flat 500 taka discount on minimum purchase of 3000', '555003688_1226228236203216_8337933768784922185_n.jpg', 'fb.com/fashionpoint', 'fashionpoint.com', 'instagram.com/fashionpoint', 'both', 'promotional', '2025-12-26 00:00:00', '2026-01-25 23:59:59', '2025-12-26 10:00:00', NULL, 9, 7),
-(10, 'Anniversary Sale 45% Off', 'Celebrating our anniversary with special discounts', '557253396_775537905394376_480811546732932476_n.jpg', 'fb.com/chicboutique', 'chicboutique.com', 'instagram.com/chicboutique', 'both', 'anniversary', '2026-01-01 00:00:00', '2026-01-15 23:59:59', '2025-12-26 10:00:00', NULL, 10, 8),
-(11, 'Early Bird Discount 35%', 'Shop before 12 PM and get 35% discount', '557633380_1230683785757661_4653253639487466719_n.jpg', 'fb.com/smartlook', 'smartlook.com', 'instagram.com/smartlook', 'physical', 'early_bird', '2025-12-27 06:00:00', '2026-01-31 12:00:00', '2025-12-26 10:00:00', NULL, 11, 9),
-(12, 'Festive Collection Launch', 'New festive collection with 20% launch discount', '565693637_1246339194193756_290874684616632579_n.jpg', 'fb.com/voguecollection', 'voguecollection.com', 'instagram.com/voguecollection', 'both', 'launch', '2025-12-26 00:00:00', '2026-01-10 23:59:59', '2025-12-26 10:00:00', NULL, 12, 10),
-(13, 'Loyalty Member Exclusive', 'Extra 15% off for loyalty card holders', '581955660_1270718341755841_5188616761491957754_n.jpg', 'fb.com/trendsetter', 'trendsetter.com', 'instagram.com/trendsetter', 'physical', 'loyalty', '2025-12-26 00:00:00', '2026-12-31 23:59:59', '2025-12-26 10:00:00', NULL, 13, 11),
-(14, 'Mid-Season Sale 40%', 'Mid-season clearance on selected categories', '590451392_823488960599270_3041315329861702199_n.jpg', 'fb.com/fashionstreet', 'fashionstreet.com', 'instagram.com/fashionstreet', 'both', 'seasonal', '2025-12-26 00:00:00', '2026-01-30 23:59:59', '2025-12-26 10:00:00', NULL, 14, 12),
-(15, 'Premium Collection Discount', 'Get 25% off on premium collection items', '599571912_1296225459203493_6010755830063311618_n.jpg', 'fb.com/royalwardrobe', 'royalwardrobe.com', 'instagram.com/royalwardrobe', 'online', 'premium', '2025-12-26 00:00:00', '2026-02-15 23:59:59', '2025-12-26 10:00:00', NULL, 15, 13),
-(16, 'Buy 3 Get 50% Off on 3rd', 'Special offer on bulk purchases', '600162819_1293868062774202_5667449546045099589_n.jpg', 'fb.com/stylestudio', 'stylestudio.com', 'instagram.com/stylestudio', 'physical', 'promotional', '2025-12-26 00:00:00', '2026-01-20 23:59:59', '2025-12-26 10:00:00', NULL, 16, 14),
-(17, 'Factory Outlet Sale', 'Direct from factory at wholesale prices', '600246903_1295388429287196_3385951968242749507_n.jpg', 'fb.com/fashionfactory', 'fashionfactory.com', 'instagram.com/fashionfactory', 'physical', 'factory', '2025-12-26 00:00:00', '2026-03-31 23:59:59', '2025-12-26 10:00:00', NULL, 17, 15),
-(18, 'Online Exclusive 55% Off', 'Special discount for online shoppers only', '600368428_1296234142535958_5530765740902743866_n.jpg', 'fb.com/glamourzone', 'glamourzone.com', 'instagram.com/glamourzone', 'online', 'exclusive', '2025-12-26 00:00:00', '2026-01-31 23:59:59', '2025-12-26 10:00:00', NULL, 18, 16),
-(19, 'Bundle Deal: Save More', 'Create your own bundle and save up to 45%', '601907005_1303025425191799_6431186795333383664_n.jpg', 'fb.com/modernthreads', 'modernthreads.com', 'instagram.com/modernthreads', 'both', 'bundle', '2025-12-26 00:00:00', '2026-02-28 23:59:59', '2025-12-26 10:00:00', NULL, 19, 17),
-(20, 'Happy Hour Deal', 'Extra 30% off between 2 PM to 4 PM', '604889847_1301680671991305_7029417141578765938_n.jpg', 'fb.com/styleavenue', 'styleavenue.com', 'instagram.com/styleavenue', 'physical', 'happy_hour', '2025-12-27 14:00:00', '2026-01-31 16:00:00', '2025-12-26 10:00:00', NULL, 20, 18);
+INSERT INTO `deal` (`deal_id`, `deal_title`, `deal_details`, `deal_thumbnail`, `source_facebook`, `source_website`, `source_instagram`, `deal_channel`, `deal_type`, `deal_start_datetime`, `deal_end_datetime`, `rating`, `created_at`, `updated_at`, `branch_id`, `shop_id`) VALUES
+(1, 'Winter Sale 50% Off', 'Get 50% discount on all winter collection items', 'deal-1766916997468.jpeg', 'fb.com/fashionhub', 'fashionhub.com', 'instagram.com/fashionhub', 'both', 'seasonal', '2025-12-20 00:00:00', '2026-01-31 00:00:00', NULL, '2025-12-26 10:00:00', '2025-12-28 16:19:24', 1, 1),
+(2, 'Buy 2 Get 1 Free', 'Purchase any two items and get one free', '470545056_510398875491087_7792261206238131915_n.jpg', 'fb.com/fashionhub', 'fashionhub.com', 'instagram.com/fashionhub', 'physical', 'promotional', '2025-12-26 00:00:00', '2026-01-15 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 2, 1),
+(3, 'New Year Mega Sale', 'Celebrate new year with up to 70% discount', '470607269_510378312159810_1257260679795376347_n.jpg', 'fb.com/stylegallery', 'stylegallery.com', 'instagram.com/stylegallery', 'online', 'seasonal', '2025-12-31 00:00:00', '2026-01-10 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 3, 2),
+(4, 'Flash Sale: 24 Hours Only', 'Limited time offer - 40% off on selected items', '470746382_510398665491108_3938817974956477131_n.jpg', 'fb.com/stylegallery', 'stylegallery.com', 'instagram.com/stylegallery', 'both', 'flash', '2025-12-27 00:00:00', '2025-12-28 00:00:00', NULL, '2025-12-26 10:00:00', NULL, 4, 2),
+(5, 'Weekend Special Offer', 'Extra 30% off on weekend shopping', '470796823_510397568824551_8822883877595019429_n.jpg', 'fb.com/trendycloset', 'trendycloset.com', 'instagram.com/trendycloset', 'physical', 'weekend', '2025-12-28 00:00:00', '2025-12-29 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 5, 3),
+(6, 'Student Discount 25%', 'Special discount for students with valid ID', '526079036_728209483460552_7023137644665283694_n.jpg', 'fb.com/elitewear', 'elitewear.com', 'instagram.com/elitewear', 'both', 'student', '2025-12-26 00:00:00', '2026-03-31 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 6, 4),
+(7, 'Clearance Sale Up to 60%', 'End of season clearance - massive discounts', '541460618_750460854568748_6826875349311602043_n.jpg', 'fb.com/urbanstyle', 'urbanstyle.com', 'instagram.com/urbanstyle', 'physical', 'clearance', '2025-12-26 00:00:00', '2026-01-20 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 7, 5),
+(8, 'Free Shipping on Orders Above 2000', 'No shipping charges for orders above BDT 2000', '549606228_1221209440040065_5816350683428944226_n.jpg', 'fb.com/classicattire', 'classicattire.com', 'instagram.com/classicattire', 'online', 'shipping', '2025-12-26 00:00:00', '2026-02-28 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 8, 6),
+(9, 'Flat 500 BDT Off', 'Get flat 500 taka discount on minimum purchase of 3000', '555003688_1226228236203216_8337933768784922185_n.jpg', 'fb.com/fashionpoint', 'fashionpoint.com', 'instagram.com/fashionpoint', 'both', 'promotional', '2025-12-26 00:00:00', '2026-01-25 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 9, 7),
+(11, 'Early Bird Discount 35%', 'Shop before 12 PM and get 35% discount', '557633380_1230683785757661_4653253639487466719_n.jpg', 'fb.com/smartlook', 'smartlook.com', 'instagram.com/smartlook', 'physical', 'early_bird', '2025-12-27 06:00:00', '2026-01-31 12:00:00', NULL, '2025-12-26 10:00:00', NULL, 11, 9),
+(12, 'Festive Collection Launch', 'New festive collection with 20% launch discount', '565693637_1246339194193756_290874684616632579_n.jpg', 'fb.com/voguecollection', 'voguecollection.com', 'instagram.com/voguecollection', 'both', 'launch', '2025-12-26 00:00:00', '2026-01-10 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 12, 10),
+(13, 'Loyalty Member Exclusive', 'Extra 15% off for loyalty card holders', '581955660_1270718341755841_5188616761491957754_n.jpg', 'fb.com/trendsetter', 'trendsetter.com', 'instagram.com/trendsetter', 'physical', 'loyalty', '2025-12-26 00:00:00', '2026-12-31 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 13, 11),
+(14, 'Mid-Season Sale 40%', 'Mid-season clearance on selected categories', '590451392_823488960599270_3041315329861702199_n.jpg', 'fb.com/fashionstreet', 'fashionstreet.com', 'instagram.com/fashionstreet', 'both', 'seasonal', '2025-12-26 00:00:00', '2026-01-30 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 14, 12),
+(15, 'Premium Collection Discount', 'Get 25% off on premium collection items', '599571912_1296225459203493_6010755830063311618_n.jpg', 'fb.com/royalwardrobe', 'royalwardrobe.com', 'instagram.com/royalwardrobe', 'online', 'premium', '2025-12-26 00:00:00', '2026-02-15 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 15, 13),
+(16, 'Buy 3 Get 50% Off on 3rd', 'Special offer on bulk purchases', '600162819_1293868062774202_5667449546045099589_n.jpg', 'fb.com/stylestudio', 'stylestudio.com', 'instagram.com/stylestudio', 'physical', 'promotional', '2025-12-26 00:00:00', '2026-01-20 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 16, 14),
+(17, 'Factory Outlet Sale', 'Direct from factory at wholesale prices', '600246903_1295388429287196_3385951968242749507_n.jpg', 'fb.com/fashionfactory', 'fashionfactory.com', 'instagram.com/fashionfactory', 'physical', 'factory', '2025-12-26 00:00:00', '2026-03-31 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 17, 15),
+(18, 'Online Exclusive 55% Off', 'Special discount for online shoppers only', '600368428_1296234142535958_5530765740902743866_n.jpg', 'fb.com/glamourzone', 'glamourzone.com', 'instagram.com/glamourzone', 'online', 'exclusive', '2025-12-26 00:00:00', '2026-01-31 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 18, 16),
+(19, 'Bundle Deal: Save More', 'Create your own bundle and save up to 45%', '601907005_1303025425191799_6431186795333383664_n.jpg', 'fb.com/modernthreads', 'modernthreads.com', 'instagram.com/modernthreads', 'both', 'bundle', '2025-12-26 00:00:00', '2026-02-28 23:59:59', NULL, '2025-12-26 10:00:00', NULL, 19, 17),
+(20, 'Happy Hour Deal', 'Extra 30% off between 2 PM to 4 PM', '604889847_1301680671991305_7029417141578765938_n.jpg', 'fb.com/styleavenue', 'styleavenue.com', 'instagram.com/styleavenue', 'physical', 'happy_hour', '2025-12-27 14:00:00', '2026-01-31 16:00:00', NULL, '2025-12-26 10:00:00', NULL, 20, 18);
 
 -- --------------------------------------------------------
 
+--
+-- Table structure for table `deal_category`
 --
 
 CREATE TABLE `deal_category` (
   `deal_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 
 --
 -- Dumping data for table `deal_category`
@@ -186,7 +183,6 @@ INSERT INTO `deal_category` (`deal_id`, `category_id`) VALUES
 (7, 9),
 (8, 11),
 (9, 12),
-(10, 13),
 (11, 14),
 (12, 15),
 (13, 16),
@@ -194,6 +190,8 @@ INSERT INTO `deal_category` (`deal_id`, `category_id`) VALUES
 (15, 18),
 (16, 19),
 (17, 20);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `shop`
@@ -238,13 +236,16 @@ INSERT INTO `shop` (`shop_id`, `shop_name`, `shop_details`, `shop_email`, `shop_
 
 -- --------------------------------------------------------
 
+--
+-- Table structure for table `shop_category`
+--
 
 CREATE TABLE `shop_category` (
   `shop_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `user`
@@ -269,7 +270,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `full_name`, `email`, `address`, `contact_no`, `role`, `password`, `active_status`, `image_url`, `created_at`, `updated_at`) VALUES
-(1, 'Tahmid Shahriar Bhuiyan', 'tahmidshahriar.bd@gmail.com', NULL, '01515652762', NULL, '$2b$10$4zOnJfLDOAZvbV19HhQFre7MC77EamJ.En/V2zPRzMnrtdPP.qTaS', 1, NULL, '2025-12-21 18:50:07', '2025-12-21 18:52:19');
+(1, 'Tahmid Shahriar Bhuiyan', 'tahmidshahriar.bd@gmail.com', NULL, '01515652762', NULL, '$2b$10$4zOnJfLDOAZvbV19HhQFre7MC77EamJ.En/V2zPRzMnrtdPP.qTaS', 1, NULL, '2025-12-21 18:50:07', '2025-12-21 18:52:19'),
+(2, 'Tahmid Shahriar', 'tahmidshahriar.bd3@gmail.com', NULL, '01515652762', NULL, '$2b$10$OcTP/jP9EQPyWHDlHPQ/Sui/cH2D/VbQtjzFjsdE04q6NpfhxsBtC', 1, NULL, '2025-12-28 12:44:09', NULL);
 
 --
 -- Indexes for dumped tables
@@ -309,10 +311,11 @@ ALTER TABLE `shop`
   ADD PRIMARY KEY (`shop_id`);
 
 --
+-- Indexes for table `shop_category`
+--
 ALTER TABLE `shop_category`
   ADD PRIMARY KEY (`shop_id`,`category_id`),
   ADD KEY `fk_sc_category` (`category_id`);
-
 
 --
 -- Indexes for table `user`
@@ -328,31 +331,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `branch`
 --
 ALTER TABLE `branch`
-  MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `deal`
 --
 ALTER TABLE `deal`
-  MODIFY `deal_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `deal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `shop_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `shop_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -372,14 +375,17 @@ ALTER TABLE `deal`
   ADD CONSTRAINT `fk_deal_shop` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`shop_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `deal_category`
+--
 ALTER TABLE `deal_category`
   ADD CONSTRAINT `fk_dc_deal` FOREIGN KEY (`deal_id`) REFERENCES `deal` (`deal_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `shop_category`
+--
 ALTER TABLE `shop_category`
   ADD CONSTRAINT `fk_sc_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_sc_shop` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`shop_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
