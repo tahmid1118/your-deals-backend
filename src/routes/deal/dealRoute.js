@@ -4,6 +4,7 @@ const express = require("express");
 const multer = require("multer");
 const dealRouter = express.Router();
   const db = require("../../../database/dbPool");
+const { API_STATUS_CODE } = require("../../consts/errorStatus");
 const { dealDataValidator } = require("../../middlewares/deal/dealDataValidator");
 const { checkShopExists } = require("../../middlewares/common/checkShopExists");
 const { checkBranchExists } = require("../../middlewares/common/checkBranchExists");
@@ -15,8 +16,9 @@ const { getDealTableData } = require("../../main/deal/getDealTableData");
 const { paginationData } = require("../../middlewares/pagination/paginationData");
 const { getDealListData } = require("../../main/deal/getDealListData");
 const { updateDeal } = require("../../main/deal/updateDeal");
+const { updateDealRating } = require("../../main/deal/updateDealRating");
 const { deleteDeal } = require("../../main/deal/deleteDeal");
-
+ const { setServerResponse } = require("../../common/setServerResponse");
 // ================= ROUTES & LOGIC =================
 
 /**
@@ -266,6 +268,66 @@ dealRouter.post(
       });
   }
 );
+
+/**
+ * @description This route is used to update only the rating of a deal.
+ */
+dealRouter.post("/update-rating", languageValidator, async (req, res) => {
+  const { dealId, rating, lg } = req.body;
+
+  // Validate dealId
+  if (!dealId || isNaN(parseInt(dealId))) {
+    return res.status(API_STATUS_CODE.BAD_REQUEST).send(
+      setServerResponse(
+        API_STATUS_CODE.BAD_REQUEST,
+        'deal_id_is_required',
+        lg
+      )
+    );
+  }
+
+  // Validate rating
+  if (rating === undefined || rating === null || isNaN(parseInt(rating))) {
+    const { setServerResponse } = require("../../common/setServerResponse");
+    return res.status(API_STATUS_CODE.BAD_REQUEST).send(
+      setServerResponse(
+        API_STATUS_CODE.BAD_REQUEST,
+        'rating_must_be_a_non_negative_integer',
+        lg
+      )
+    );
+  }
+
+  const parsedRating = parseInt(rating);
+  if (parsedRating < 0) {
+    const { setServerResponse } = require("../../common/setServerResponse");
+    return res.status(API_STATUS_CODE.BAD_REQUEST).send(
+      setServerResponse(
+        API_STATUS_CODE.BAD_REQUEST,
+        'rating_must_be_a_non_negative_integer',
+        lg
+      )
+    );
+  }
+
+  updateDealRating(parseInt(dealId), parsedRating, lg)
+    .then((data) => {
+      const { statusCode, status, message, result } = data;
+      return res.status(statusCode).send({
+        status: status,
+        message: message,
+        data: result,
+      });
+    })
+    .catch((error) => {
+      console.error("Update deal rating error:", error);
+      const { statusCode, status, message } = error;
+      return res.status(statusCode).send({
+        status: status,
+        message: message,
+      });
+    });
+});
 
 /**
  * @description This route is used to delete a deal.

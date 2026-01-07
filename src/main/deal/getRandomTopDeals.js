@@ -1,5 +1,7 @@
 const { pool } = require("../../../database/dbPool");
 const { getDealDetails } = require("./getDealDetails");
+const { setServerResponse } = require("../../common/setServerResponse");
+const { API_STATUS_CODE } = require("../../consts/errorStatus");
 
 
 /**
@@ -55,20 +57,20 @@ async function getRandomTopDeals(categoryIds, lg, excludeDealId) {
     const detailsResults = await Promise.all(detailsPromises);
     const responseDeals = detailsResults.map((d) => d.result);
 
-    return {
-      statusCode: 200,
-      status: "success",
-      message: "Random top deals fetched successfully",
-      result: responseDeals,
-    };
+    return setServerResponse(
+      API_STATUS_CODE.OK,
+      'random_top_deals_fetched_successfully',
+      lg,
+      responseDeals
+    );
   } catch (error) {
     console.error("getRandomTopDeals error:", error);
-    return {
-      statusCode: 500,
-      status: "failed",
-      message: "Internal server error",
-      result: [],
-    };
+    return setServerResponse(
+      API_STATUS_CODE.INTERNAL_SERVER_ERROR,
+      'internal_server_error',
+      lg,
+      []
+    );
   }
 }
 

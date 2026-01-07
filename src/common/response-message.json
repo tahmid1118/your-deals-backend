@@ -91,7 +91,11 @@
     "deal_not_found": "Deal not found",
     "deal_updated_successfully": "Deal updated successfully",
     "deal_deleted_successfully": "Deal deleted successfully",
-    "deals_filtered_successfully": "Deals filtered successfully"
+    "deals_filtered_successfully": "Deals filtered successfully",
+    "random_top_deals_fetched_successfully": "Random top deals fetched successfully",
+    "deal_details_fetched_successfully": "Deal details fetched successfully",
+    "deal_id_required": "Deal ID is required",
+    "deal_rating_updated_successfully": "Deal rating updated successfully"
   },
   "bn": {
     "success": "সফল",
@@ -185,6 +189,10 @@
     "deal_not_found": "ডিল খুঁজে পাওয়া যায়নি",
     "deal_updated_successfully": "ডিল সফলভাবে আপডেট হয়েছে",
     "deal_deleted_successfully": "ডিল সফলভাবে মুছে ফেলা হয়েছে",
-    "deals_filtered_successfully": "ডিল ফিল্টার সফলভাবে সম্পন্ন হয়েছে"
+    "deals_filtered_successfully": "ডিল ফিল্টার সফলভাবে সম্পন্ন হয়েছে",
+    "random_top_deals_fetched_successfully": "র‍্যান্ডম শীর্ষ ডিল সফলভাবে আনা হয়েছে",
+    "deal_details_fetched_successfully": "ডিল বিস্তারিত সফলভাবে আনা হয়েছে",
+    "deal_id_required": "ডিল আইডি প্রয়োজন",
+    "deal_rating_updated_successfully": "ডিল রেটিং সফলভাবে আপডেট হয়েছে"
   }
 }
