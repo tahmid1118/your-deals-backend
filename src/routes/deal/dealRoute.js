@@ -3,7 +3,7 @@
 const express = require("express");
 const multer = require("multer");
 const dealRouter = express.Router();
-  const db = require("../../../database/dbPool");
+const db = require("../../../database/dbPool");
 const { API_STATUS_CODE } = require("../../consts/errorStatus");
 const { dealDataValidator } = require("../../middlewares/deal/dealDataValidator");
 const { checkShopExists } = require("../../middlewares/common/checkShopExists");
@@ -18,14 +18,15 @@ const { getDealListData } = require("../../main/deal/getDealListData");
 const { updateDeal } = require("../../main/deal/updateDeal");
 const { updateDealRating } = require("../../main/deal/updateDealRating");
 const { deleteDeal } = require("../../main/deal/deleteDeal");
- const { setServerResponse } = require("../../common/setServerResponse");
+const { setServerResponse } = require("../../common/setServerResponse");
+const { getRandomTopDeals } = require("../../main/deal/getRandomTopDeals");
+
 // ================= ROUTES & LOGIC =================
 
 /**
  * @description This route takes an array of categoryIds and returns 5 random deals (from the top 10 by rating) that match any of those categories.
  * It requires authentication.
  */
-const { getRandomTopDeals } = require("../../main/deal/getRandomTopDeals");
 dealRouter.post("/random-top-deals", async (req, res) => {
   const { categoryIds, lg, dealId } = req.body;
   if (!Array.isArray(categoryIds) || categoryIds.length === 0) {
@@ -139,7 +140,7 @@ dealRouter.post(
 
 /**
  * @description This route is used to get the deal table data with pagination and filters.
- * Supports filtering by shopId, branchId, categoryTitle, and targetCustomer.
+ * Supports filtering by shopId, branchId, categoryTitle, targetCustomer, and branchArea.
  * All filters are optional and can be combined.
  * It requires authentication.
  */
@@ -155,12 +156,11 @@ dealRouter.post(
       branchId: filter.branchId ? parseInt(filter.branchId) : null,
       categoryTitle: filter.categoryTitle || null,
       targetCustomer: filter.targetCustomer || null,
+      branchArea: filter.branchArea || null,
     };
 
     // Validate: if branchId is provided, shopId must also be provided
     if (filters.branchId && !filters.shopId) {
-      const { setServerResponse } = require("../../common/setServerResponse");
-      const { API_STATUS_CODE } = require("../../consts/errorStatus");
       return res.status(API_STATUS_CODE.BAD_REQUEST).send(
         setServerResponse(
           API_STATUS_CODE.BAD_REQUEST,
@@ -288,7 +288,6 @@ dealRouter.post("/update-rating", languageValidator, async (req, res) => {
 
   // Validate rating
   if (rating === undefined || rating === null || isNaN(parseInt(rating))) {
-    const { setServerResponse } = require("../../common/setServerResponse");
     return res.status(API_STATUS_CODE.BAD_REQUEST).send(
       setServerResponse(
         API_STATUS_CODE.BAD_REQUEST,
@@ -300,7 +299,6 @@ dealRouter.post("/update-rating", languageValidator, async (req, res) => {
 
   const parsedRating = parseInt(rating);
   if (parsedRating < 0) {
-    const { setServerResponse } = require("../../common/setServerResponse");
     return res.status(API_STATUS_CODE.BAD_REQUEST).send(
       setServerResponse(
         API_STATUS_CODE.BAD_REQUEST,

@@ -4,7 +4,7 @@ const { setServerResponse } = require("../../common/setServerResponse");
 
 const getDealTableData = async (paginationData, filters = {}) => {
   const { itemsPerPage, currentPageNumber, offset, filterBy, lg } = paginationData;
-  const { shopId, branchId, categoryTitle, targetCustomer } = filters;
+  const { shopId, branchId, categoryTitle, targetCustomer, branchArea } = filters;
 
   // Build dynamic query with filter conditions
   let baseQuery = `
@@ -50,6 +50,12 @@ const getDealTableData = async (paginationData, filters = {}) => {
     conditions.push('c.target_customer = ?');
     queryParams.push(targetCustomer);
     countParams.push(targetCustomer);
+  }
+
+  if (branchArea && branchArea !== null) {
+    conditions.push('b.branch_area = ?');
+    queryParams.push(branchArea);
+    countParams.push(branchArea);
   }
 
   // Add search condition (only if filterBy has a meaningful value)
