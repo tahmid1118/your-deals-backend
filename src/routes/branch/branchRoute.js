@@ -20,7 +20,7 @@ const { deleteBranch } = require("../../main/branch/deleteBranch");
  * @description This route is used to create a new branch.
  * It requires authentication.
  */
-branchRouter.post("/create", authenticateToken, checkShopExists, branchDataValidator, async (req, res) => {
+branchRouter.post("/create", checkShopExists, branchDataValidator, async (req, res) => {
   createBranch(req.body.branchData)
     .then((data) => {
       const { statusCode, status, message } = data;

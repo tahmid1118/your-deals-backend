@@ -72,7 +72,7 @@ categoryRouter.post(
  * @description This route is used to return category list.
  * It requires authentication.
  */
-categoryRouter.post("/category-list", authenticateToken, languageValidator, async (req, res) => {
+categoryRouter.post("/category-list", languageValidator, async (req, res) => {
   const { lg } = req.body;
   getCategoryListData(lg)
     .then((data) => {
